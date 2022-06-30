@@ -1,12 +1,14 @@
 const express = require("express");
 const {Router} = express;
-const routerMongoDB = Router();
+const routerFirebase = Router();
 
-let mongoDBContainer = require("../clases/mongoDBClass.js");
+let FirebaseContainer = require("../clases/firebaseClass.js");
 
-routerMongoDB.get("/mongoDB", (req, res, next) => {
+
+
+routerFirebase.get("/firebase", (req, res, next) => {
     const mostrarProductos = async () => {
-        const productos = new mongoDBContainer("ecommerce", "usuarios");
+        const productos = new FirebaseContainer("colores");
         const showProductos = await productos.getAll();
         res.send(showProductos);
     };
@@ -67,4 +69,4 @@ routerMongoDB.get("/mongoDB", (req, res, next) => {
 //     eliminoPorID();
 // })
 
-module.exports = {routerMongoDB};
+module.exports = {routerFirebase};
