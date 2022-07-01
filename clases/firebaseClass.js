@@ -76,6 +76,19 @@ module.exports = class ContenedorFirebase {
       return "Usuario Eliminado";
     }
   }
+
+  async updateById(doc, usuario) {
+
+    const data = {
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      dni: usuario.dni
+    };
+    
+    // Add a new document in collection "Usuarios" with nombre de Usuario '
+    const res = await db.collection(this.nombreCollection).doc(doc).set(data);
+    return res.data;
+  }
 };
 
 /**

@@ -36,6 +36,17 @@ routerFirebase.get("/firebase/:doc", (req, res, next) => {
     mostrarProdID();
 });
 
+routerFirebase.put("/firebase/:doc", (req, res, next) => {
+  let doc = (req.params.doc);
+  const mostrarProdID = async () => {
+    const showUsuarios = await usuarios.updateById(doc, req.body);
+    console.log('Usuario Actualizado')
+      res.send(showUsuarios);
+      return;
+  };  
+  mostrarProdID();
+});
+
 routerFirebase.delete("/firebase/:doc", (req, res, next) => {
     let doc = (req.params.doc);
     const eliminoPorID = async () => {
