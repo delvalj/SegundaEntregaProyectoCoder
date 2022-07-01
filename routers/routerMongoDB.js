@@ -16,8 +16,8 @@ routerMongoDB.get("/mongoDB", (req, res, next) => {
 });
 
 routerMongoDB.get("/mongodb/:id", (req, res, next) => {
-    let id = parseInt(req.params.id);
-const mostrarProdID = async () => {
+    let id = (req.params.id);
+    const mostrarProdID = async () => {
     const productos = new mongoDBContainer("ecommerce", "usuarios");
         const mostrarID = await productos.getById(id);
         res.send(mostrarID);

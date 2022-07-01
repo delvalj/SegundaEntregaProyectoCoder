@@ -21,9 +21,6 @@ module.exports = class ContenedorFirebase {
   }
 };
 
-// const resultados = (await query.get()).docs;
-// console.log(resultados.map( resultado => (resultado.data())));
-// }
 
 /**
  *  1) Agregar Colores

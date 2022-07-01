@@ -1,4 +1,5 @@
 const { MongoClient } = require("mongodb");
+var ObjectId = require('mongodb').ObjectId; 
 
 const mongo = new MongoClient(
   "mongodb+srv://delvalj:Joaquin712@cluster0.vznga.mongodb.net/?retryWrites=true&w=majority"
@@ -29,14 +30,17 @@ module.exports = class ContenedorMongoDB {
       .find()
       .toArray();
     console.log(resultado);
+    return resultado;
   }
 
-  // async getById(id) {
-  //   try {
-  //     const resultado = (await mongo.db(this.nombreTabla).collection(this.nombreCollection).find().toArray());
-  //     return resultado.find((p) => p.id === id);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  async getById(id) {
+    try {
+      const resultado = (await mongo.db(this.nombreTabla).collection(this.nombreCollection).find({"_id" : ObjectId(id)}).toArray());
+     console.log(resultado);
+      return resultado;
+  
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };
