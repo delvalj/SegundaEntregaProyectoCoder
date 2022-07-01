@@ -60,6 +60,20 @@ subirProduct();
 });
 
 /**
+ * Actualizo un registro segun el Id que recibimos por param.
+ */
+
+routerMongoDB.put("/mongodb/:id", (req, res, next) => {
+    let id = (req.params.id);
+    const mostrarProdID = async () => {
+    const productos = new mongoDBContainer("ecommerce", "usuarios");
+        const mostrarID = await productos.updateById(id, req.body);
+        res.send(mostrarID);
+    };
+    mostrarProdID();
+});
+
+/**
  * Borra un usuario segun su id, que a su vez que es obtenido a travez de params
  */
 
@@ -69,7 +83,6 @@ subirProduct();
     const productos = new mongoDBContainer("ecommerce", "usuarios");
         await productos.deleteById(id);
         res.send("Usuario Eliminado!");
-
     };
     mostrarProdID();
 });
