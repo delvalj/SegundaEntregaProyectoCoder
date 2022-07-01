@@ -21,8 +21,13 @@ module.exports = class ContenedorFirebase {
   async getAll() {
     const query = db.collection(this.nombreCollection);
     const resultados = (await query.get()).docs;
-    const result = resultados.map((resultado) => resultado.data());
-    return result;
+    if (!resultados) {
+      console.log("No users");
+      return ('No users :(');
+    } else {
+      const result = resultados.map((resultado) => resultado.data());
+      return result;
+    }
   }
 
   /**
@@ -46,14 +51,6 @@ module.exports = class ContenedorFirebase {
    * Metodo para obtener un Usuario segun su ID, que a su vez, es obtenido por params.
    */
 
-  //  async getById(doc) {
-  //   // const query = db.collection(this.nombreCollection);
-  //   const usuarioXid = db.collection(this.nombreCollection).doc(doc);
-  //   const result = usuarioXid.map((resultado) => resultado.data());
-  //   console.log(result)
-  //   return usuarioXid;
-  // }
-
   async getById(doc) {
     const userRef = db.collection(this.nombreCollection).doc(doc);
     const user = await userRef.get();
@@ -64,7 +61,20 @@ module.exports = class ContenedorFirebase {
       console.log(ususarioID);
       return ususarioID;
     }
-  
+  }
+
+  /**
+   * Metodo Para elimiar un usuario segun su nombre de usuario que asu vez es obtenido por params
+   * @param {*} doc
+   * @returns
+   */
+  async deleteById(doc) {
+    if (!doc) {
+      console.log("No such User!");
+    } else {
+      await db.collection(this.nombreCollection).doc(doc).delete();
+      return "Usuario Eliminado";
+    }
   }
 };
 

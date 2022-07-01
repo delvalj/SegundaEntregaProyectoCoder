@@ -36,27 +36,14 @@ routerFirebase.get("/firebase/:doc", (req, res, next) => {
     mostrarProdID();
 });
 
-// const productoSubido = storage.fields([
-//     {
-//         title: "title",
-//         price: "price",
-//         thumbnail: "thumbnail",
-//         description: "descripcion",
-//         codigo: null,
-//         stock: null
-//     },
-// ]);
-
-
-
-// routerCarrito.delete("/carrito/:id", (req, res) => {
-//     let id = parseInt(req.params.id);
-//     const eliminoPorID = async () => {
-//         const productos = new carritoContainer("carrito.txt");
-//         const mostrarID = await productos.deleteById(id);
-//         res.send(`elemento con el ${id} eliminado`);
-//     };
-//     eliminoPorID();
-// })
+routerFirebase.delete("/firebase/:doc", (req, res, next) => {
+    let doc = (req.params.doc);
+    const eliminoPorID = async () => {
+      const usuarios = new FirebaseContainer("usuarios");
+        await usuarios.deleteById(doc);
+    };
+    eliminoPorID();
+    next();
+})
 
 module.exports = { routerFirebase };
