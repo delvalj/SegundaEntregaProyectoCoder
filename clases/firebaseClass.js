@@ -77,6 +77,12 @@ module.exports = class ContenedorFirebase {
     }
   }
 
+  /**
+   * Metodo para actualizar un usuario.
+   * @param {String} doc recibo el nombre del documento que quiero eliminar.
+   * @param {Object} usuario recibo la nueva informacion del usuario.
+   * @returns 
+   */
   async updateById(doc, usuario) {
 
     const data = {
@@ -90,46 +96,3 @@ module.exports = class ContenedorFirebase {
     return res.data;
   }
 };
-
-/**
- * Crear un Usuario
- */
-
-// const rojo = query.doc('red');
-// await rojo.create({nombre: "red"});
-//
-// const green = query.doc('green');
-// await green.create({nombre: "green"});
-//
-// const navy = query.doc('navy');
-// await navy.create({nombre: "navy"});
-
-// console.log('Documentos Creados!');
-
-/**
- * 2) Listar todos los elementos
- */
-
-//  async getAll() {
-//     const resultado = (await mongo.db(this.nombreTabla).collection(this.nombreCollection).find().toArray());
-//     console.log(resultado)
-//   }
-
-// const resultados = (await query.get()).docs;
-// console.log(resultados.map((resultado) => resultado.data()));
-
-/**
- * 3) Modificar un elemento de nombre 'Navy' por 'Blue'
- */
-// const doc = query.doc('navy');
-// await doc.update({nombre: "blue"})
-//
-// console.log('Nombre Modificado!')
-
-/**
- *  4) Borrar el color 'Green'
- */
-// const doc = query.doc('green');
-// await doc.delete();
-//
-// console.log('Color Borrado');

@@ -12,17 +12,27 @@ module.exports = class ContenedorMongoDB {
     this.nombreCollection = nombreCollection;
   }
 
-  async metodoSave(producto) {
+  
+/**
+ * Metodo para guardar un usuario.
+ * Recibo un objeto usuario como param. 
+ * @param {Object} usuario 
+ */
+  async metodoSave(usuario) {
     await mongo
       .db(this.nombreTabla)
       .collection(this.nombreCollection)
       .insertOne({
-        nombre: producto.nombre,
-        apellido: producto.apellido,
-        dni: producto.dni,
+        nombre: usuario.nombre,
+        apellido: usuario.apellido,
+        dni: usuario.dni,
       });
   }
 
+  /**
+   * Metodo para obtener todos los usuarios
+   * @returns 
+   */
   async getAll() {
     const resultado = await mongo
       .db(this.nombreTabla)
@@ -33,6 +43,11 @@ module.exports = class ContenedorMongoDB {
     return resultado;
   }
 
+  /**
+   * Metodo para obtener un usuario segun su ID 
+   * @param {Integer} id recibo por parametro el id del usuario que voy a eliminar
+   * @returns 
+   */
   async getById(id) {
     try {
       const resultado = await mongo
@@ -47,7 +62,13 @@ module.exports = class ContenedorMongoDB {
     }
   }
 
-  async updateById(id, producto) {
+  /**
+   * Metodo para actualizar un usuario.
+   * @param {Integer} id recibo por parametros el id del usuario que voy a actualizar .
+   * @param {Object} usuario  recibo por parametros un objeto usuario con la nueva informacion.
+   * @returns 
+   */
+  async updateById(id, usuario) {
     try {
       const resultado = await mongo
         .db(this.nombreTabla)
@@ -56,19 +77,23 @@ module.exports = class ContenedorMongoDB {
           { "_id" : ObjectId(id) },
           {
             "$set" : { 
-              "nombre": producto.nombre,
-              "apellido": producto.apellido,
-              "dni": producto.dni,
+              "nombre": usuario.nombre,
+              "apellido": usuario.apellido,
+              "dni": usuario.dni,
             },
           }
         );
-      // console.log(resultado);
       return resultado;
     } catch (error) {
       console.log(error);
     }
   }
 
+/**
+ * Metodo para eliminar un usuario segun su ID.
+ * @param {Integer} id obtengo el id del usuario que quiero eliminar.
+ * @returns 
+ */
   async deleteById(id) {
     try {
       const resultado = await mongo
