@@ -1,8 +1,6 @@
 const express = require("express");
 const {Router} = express;
 const routerMongoDB = Router();
-const multer = require("multer");
-const storage = multer({destinantion: "/upload"});
 
 let mongoDBContainer = require("../clases/mongoDBClass.js");
 

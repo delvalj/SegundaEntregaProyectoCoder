@@ -8,23 +8,51 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-
 module.exports = class ContenedorFirebase {
-  constructor( nombreCollection) {
+  constructor(nombreCollection) {
     this.nombreCollection = nombreCollection;
   }
+
+  /**
+   * Metodo para obtener todos los usuarios 
+   * @returns todos los usuarios
+   */
 
   async getAll() {
     const query = db.collection(this.nombreCollection);
     const resultados = (await query.get()).docs;
-    console.log(resultados.map((resultado) => resultado.data()));
+    const result = resultados.map((resultado) => resultado.data());
+    return result;
   }
+  
+
+  /**
+   * Metodo para guardar un usuario en BD.
+   * @param {*} user 
+   * @returns 
+   */
+  async metodoSave(user) {
+    const query = db.collection(this.nombreCollection);
+    const usuario = query.doc(user.nombre + user.apellido);
+    // usuario.id = usuario.length + 1;
+    const mostrarXPantalla = await usuario.create({
+      nombre: user.nombre,
+      apellido: user.apellido,
+      dni: user.dni,
+    });
+    return mostrarXPantalla;
+  }
+  
+
+
+
 };
 
 
 /**
- *  1) Agregar Colores
+ * Crear un Usuario
  */
+
 // const rojo = query.doc('red');
 // await rojo.create({nombre: "red"});
 //

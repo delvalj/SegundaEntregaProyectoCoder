@@ -1,26 +1,36 @@
 const express = require("express");
-const {Router} = express;
+const { Router } = express;
 const routerFirebase = Router();
+const PORT = 8080;
 
 let FirebaseContainer = require("../clases/firebaseClass.js");
+const usuarios = new FirebaseContainer("usuarios");
 
-
-
+/**
+ * Metodo para obtener todos los usuarios de firebase y mostrarlos por pantalla
+ */
 routerFirebase.get("/firebase", (req, res, next) => {
-    const mostrarProductos = async () => {
-        const productos = new FirebaseContainer("colores");
-        const showProductos = await productos.getAll();
-        res.send(showProductos);
-    };
-    mostrarProductos();
+  const mostraUsuarios = async () => {
+    const showUsuarios = await usuarios.getAll();
+    res.send(showUsuarios);
+  };
+  mostraUsuarios();
 });
 
-// routerMongoDB.get("/carrito/:id", (req, res, next) => {
-//     let id = parseInt(req.params.id);
+routerFirebase.post("/firebase", async (req, res, next) => {
+  const subirUsuario = async () => {
+    const usuarios = new FirebaseContainer("usuarios");
+    await usuarios.metodoSave(req.body);
+  };
+  next();
+  subirUsuario();
+});
+
+// routerFirebase.get("/firebase/:id", (req, res, next) => {
+//     let id = (req.params.id);
 //     const mostrarProdID = async () => {
-//         const productos = new carritoContainer("carrito.txt");
-//         const mostrarID = await productos.getById(id);
-//         res.send(mostrarID);
+//       const showUsuarios = await usuarios.getById(id);
+//         res.send(showUsuarios);
 //     };
 //     mostrarProdID();
 // });
@@ -36,28 +46,7 @@ routerFirebase.get("/firebase", (req, res, next) => {
 //     },
 // ]);
 
-// routerMongoDB.post("/carrito", productoSubido, async (req, res, next) => {
-//     const subirProduct = async () => {
-//         let produc = new carritoContainer("carrito.txt");
-//         if (
-//             req.body.title === "" ||
-//             req.body.price === "" ||
-//             req.body.thumbnail === "" ||
-//             req.body.description === "" ||
-//             req.body.codigo === "" ||
-//             req.body.stock === ""
-//         ) {
-//             return res.status(400).send({
-//                 error: "No se pudo cargar el producto. Complete los campos vacios.",
-//             });
-//         } else {
-//             await produc.metodoSave(req.body);
-//             return res.send(req.body);
-//         }
-//         next();
-//     };
-// subirProduct();
-// });
+
 
 // routerCarrito.delete("/carrito/:id", (req, res) => {
 //     let id = parseInt(req.params.id);
@@ -69,4 +58,4 @@ routerFirebase.get("/firebase", (req, res, next) => {
 //     eliminoPorID();
 // })
 
-module.exports = {routerFirebase};
+module.exports = { routerFirebase };
