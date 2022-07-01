@@ -1,1 +1,1 @@
-[{"title":"Hla","thumbnail":"hola","price":"1","description":"1","code":"123","stock":"123","id":1,"timestamp":"June 30th 2022, 4:09:10 pm"}]
+[{"title":"Hla","thumbnail":"hola","price":"1","description":"1","code":"123","stock":"123","id":1,"timestamp":"June 30th 2022, 4:09:10 pm"},{"title":"a13","thumbnail":"asd","price":"123","description":"asd","code":"123","stock":"12","id":2,"timestamp":"June 30th 2022, 10:47:36 pm"}]
