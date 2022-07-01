@@ -26,14 +26,15 @@ routerFirebase.post("/firebase", async (req, res, next) => {
   subirUsuario();
 });
 
-// routerFirebase.get("/firebase/:id", (req, res, next) => {
-//     let id = (req.params.id);
-//     const mostrarProdID = async () => {
-//       const showUsuarios = await usuarios.getById(id);
-//         res.send(showUsuarios);
-//     };
-//     mostrarProdID();
-// });
+
+routerFirebase.get("/firebase/:doc", (req, res, next) => {
+    let doc = (req.params.doc);
+    const mostrarProdID = async () => {
+      const showUsuarios = await usuarios.getById(doc);
+        res.send(showUsuarios);
+    };  
+    mostrarProdID();
+});
 
 // const productoSubido = storage.fields([
 //     {

@@ -14,7 +14,7 @@ module.exports = class ContenedorFirebase {
   }
 
   /**
-   * Metodo para obtener todos los usuarios 
+   * Metodo para obtener todos los usuarios
    * @returns todos los usuarios
    */
 
@@ -24,12 +24,11 @@ module.exports = class ContenedorFirebase {
     const result = resultados.map((resultado) => resultado.data());
     return result;
   }
-  
 
   /**
    * Metodo para guardar un usuario en BD.
-   * @param {*} user 
-   * @returns 
+   * @param {*} user
+   * @returns
    */
   async metodoSave(user) {
     const query = db.collection(this.nombreCollection);
@@ -42,12 +41,32 @@ module.exports = class ContenedorFirebase {
     });
     return mostrarXPantalla;
   }
+
+  /**
+   * Metodo para obtener un Usuario segun su ID, que a su vez, es obtenido por params.
+   */
+
+  //  async getById(doc) {
+  //   // const query = db.collection(this.nombreCollection);
+  //   const usuarioXid = db.collection(this.nombreCollection).doc(doc);
+  //   const result = usuarioXid.map((resultado) => resultado.data());
+  //   console.log(result)
+  //   return usuarioXid;
+  // }
+
+  async getById(doc) {
+    const userRef = db.collection(this.nombreCollection).doc(doc);
+    const user = await userRef.get();
+    if (!user.exists) {
+      console.log("No such document!");
+    } else {
+      const ususarioID = user.data();
+      console.log(ususarioID);
+      return ususarioID;
+    }
   
-
-
-
+  }
 };
-
 
 /**
  * Crear un Usuario
