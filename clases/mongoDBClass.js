@@ -43,4 +43,18 @@ module.exports = class ContenedorMongoDB {
       console.log(error);
     }
   }
+
+  async deleteById(id) {
+    try {
+      const resultado = (await mongo.db(this.nombreTabla).collection(this.nombreCollection).deleteOne({"_id" : ObjectId(id)}));
+      return resultado;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  
+
+
+ 
 };
