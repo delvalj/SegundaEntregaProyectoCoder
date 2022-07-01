@@ -75,7 +75,6 @@ module.exports = class Contenedor {
     }
   }
 
-
   async deleteById(id) {
 
     let array = [];

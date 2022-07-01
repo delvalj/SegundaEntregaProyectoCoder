@@ -17,6 +17,9 @@ routerFirebase.get("/firebase", (req, res, next) => {
   mostraUsuarios();
 });
 
+/**
+ * Metodo para 
+ */
 routerFirebase.post("/firebase", async (req, res, next) => {
   const subirUsuario = async () => {
     const usuarios = new FirebaseContainer("usuarios");
