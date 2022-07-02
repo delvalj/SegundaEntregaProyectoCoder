@@ -28,8 +28,21 @@ routerProdSQL.get("/productosSQL", async (req, res, next) => {
     res.send(showProductos);
   });
 
+    /**
+ * Elimino un producto segun su ID que es obtenido por params. */
+
+routerProdSQL.delete("/productosSQL/:id", (req, res) => {
+    let id = parseInt(req.params.id);
+    const eliminoPorID = async () => {
+        const productos = new prodContainer(optionsMySQL, "articulos");
+        await productos.deleteById(id);
+        res.send(`elemento con el ${id} eliminado`);
+    };
+    eliminoPorID();
+})
+
 /**
- * Guardo un producto en BDD.
+ * Guardo un producto en BDD MySQL.
  */
 const productoSubido = storage.fields([
   { titulo: "title", thumbnail: "thumbnail", price: "price", code: "code" },
@@ -51,6 +64,7 @@ routerProdSQL.post("/productosSQL", productoSubido, async (req, res) => {
     // res.redirect(`http://localhost:${PORT}`);
     res.send("Producto Guardado!");
   }
+
 });
 
 module.exports = { routerProdSQL };

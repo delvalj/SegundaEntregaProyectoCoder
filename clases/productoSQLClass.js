@@ -55,10 +55,10 @@ module.exports = class Contenedor {
      */
                  async deleteById(id) {
                     try {
-                        return await this.knex.select('*').from(this.tabla).where({ id: id });
+                        return await this.knex.select('*').from(this.tabla).where({ id: id }).del();
                     } catch (error) {
                         console.log("Error en getAll", error);
-                        return [];
+                        return;
                     }
                 }
 }
