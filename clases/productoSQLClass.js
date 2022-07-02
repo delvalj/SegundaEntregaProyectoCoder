@@ -27,7 +27,7 @@ module.exports = class Contenedor {
         })
     }
     /**
-     * Metodo para obtener todos los productos
+     * Metodo para obtener todos los productosd
      */
     async getAll() {
         try {
@@ -37,5 +37,29 @@ module.exports = class Contenedor {
             return [];
         }
     }
+
+        /**
+     * Metodo para obtener un producto segun su Id que a su vez es obtenido por params.
+     */
+         async getById(id) {
+            try {
+                return await this.knex.select('*').from(this.tabla).where({ id: id });
+            } catch (error) {
+                console.log("Error en getAll", error);
+                return [];
+            }
+        }
+
+    /**
+     * Metodo para eliminar un producto segun su Id que a su vez es obtenido por params.
+     */
+                 async deleteById(id) {
+                    try {
+                        return await this.knex.select('*').from(this.tabla).where({ id: id });
+                    } catch (error) {
+                        console.log("Error en getAll", error);
+                        return [];
+                    }
+                }
 }
 

@@ -4,7 +4,7 @@ const { routerProducto } = require('./routers/routerProducto')
 const { routerCarrito } = require('./routers/routerCarrito');
 const { routerMongoDB } = require("./routers/routerMongoDB");
 const { routerFirebase } = require("./routers/routerFirebase");
-const { routerProd } = require("./routers/routerProd");
+const { routerProdSQL } = require("./routers/routerProdSQL");
 
 const PORT = process.env.PORT || 8080;
 
@@ -25,7 +25,7 @@ app.use("/api", routerProducto);
 app.use("/api", routerCarrito);
 app.use("/api", routerMongoDB);
 app.use("/api", routerFirebase);
-app.use("/api", routerProd);
+app.use("/api", routerProdSQL);
 
 
 app.use(function(req, res) {
