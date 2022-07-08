@@ -32,17 +32,18 @@ module.exports = class ContenedorFirebase {
 
   /**
    * Metodo para guardar un usuario en BD.
-   * @param {*} user
+   * @param {*} producto
    * @returns
    */
-  async metodoSave(user) {
+  async metodoSave(prod) {
     const query = db.collection(this.nombreCollection);
-    const usuario = query.doc(user.nombre + user.apellido);
+    const producto = query.doc(prod.nombre);
     // usuario.id = usuario.length + 1;
-    const mostrarXPantalla = await usuario.create({
-      nombre: user.nombre,
-      apellido: user.apellido,
-      dni: user.dni,
+    const mostrarXPantalla = await producto.create({
+        nombre: prod.nombre,
+        price: prod.price,
+        code: prod.code,
+        thumbnail: prod.thumbnail
     });
     return mostrarXPantalla;
   }
@@ -52,19 +53,19 @@ module.exports = class ContenedorFirebase {
    */
 
   async getById(doc) {
-    const userRef = db.collection(this.nombreCollection).doc(doc);
-    const user = await userRef.get();
-    if (!user.exists) {
+    const prodRef = db.collection(this.nombreCollection).doc(doc);
+    const prod = await prodRef.get();
+    if (!prod.exists) {
       console.log("No such document!");
     } else {
-      const ususarioID = user.data();
-      console.log(ususarioID);
-      return ususarioID;
+      const productoID = prod.data();
+      console.log(productoID);
+      return productoID;
     }
   }
 
   /**
-   * Metodo Para elimiar un usuario segun su nombre de usuario que asu vez es obtenido por params
+   * Metodo Para elimiar un producto segun su nombre de producto que a su vez es obtenido por params
    * @param {*} doc
    * @returns
    */
@@ -73,25 +74,26 @@ module.exports = class ContenedorFirebase {
       console.log("No such User!");
     } else {
       await db.collection(this.nombreCollection).doc(doc).delete();
-      return "Usuario Eliminado";
+      return "Producto Eliminado";
     }
   }
 
   /**
-   * Metodo para actualizar un usuario.
+   * Metodo para actualizar un producto.
    * @param {String} doc recibo el nombre del documento que quiero eliminar.
-   * @param {Object} usuario recibo la nueva informacion del usuario.
+   * @param {Object} producto recibo la nueva informacion del producto.
    * @returns 
    */
-  async updateById(doc, usuario) {
+  async updateById(doc, producto) {
 
     const data = {
-      nombre: usuario.nombre,
-      apellido: usuario.apellido,
-      dni: usuario.dni
+      nombre: producto.nombre,
+      price: producto.price,
+      code: producto.code,
+      thumbnail: producto.thumbnail
     };
     
-    // Add a new document in collection "Usuarios" with nombre de Usuario '
+    // Add a new document in collection "Productos" with nombre de producto '
     const res = await db.collection(this.nombreCollection).doc(doc).set(data);
     return res.data;
   }

@@ -4,37 +4,37 @@ const routerFirebase = Router();
 const PORT = 8080;
 
 let FirebaseContainer = require("../clases/firebaseClass.js");
-const usuarios = new FirebaseContainer("usuarios");
+const productos = new FirebaseContainer("productos");
 
 /**
  * Metodo para obtener todos los usuarios de firebase y mostrarlos por pantalla
  */
 routerFirebase.get("/firebase", (req, res, next) => {
-  const mostraUsuarios = async () => {
-    const showUsuarios = await usuarios.getAll();
-    res.send(showUsuarios);
+  const mostraProductos = async () => {
+    const showProductos = await productos.getAll();
+    res.send(showProductos);
   };
-  mostraUsuarios();
+  mostraProductos();
 });
 
 /**
  * Metodo para 
  */
 routerFirebase.post("/firebase", async (req, res, next) => {
-  const subirUsuario = async () => {
-    const usuarios = new FirebaseContainer("usuarios");
-    await usuarios.metodoSave(req.body);
+  const subirProducto = async () => {
+    const producto = new FirebaseContainer("productos");
+    await producto.metodoSave(req.body);
   };
   next();
-  subirUsuario();
+  subirProducto();
 });
 
 
 routerFirebase.get("/firebase/:doc", (req, res, next) => {
     let doc = (req.params.doc);
     const mostrarProdID = async () => {
-      const showUsuarios = await usuarios.getById(doc);
-        res.send(showUsuarios);
+      const showProductos = await productos.getById(doc);
+        res.send(showProductos);
     };  
     mostrarProdID();
 });
@@ -42,9 +42,9 @@ routerFirebase.get("/firebase/:doc", (req, res, next) => {
 routerFirebase.put("/firebase/:doc", (req, res, next) => {
   let doc = (req.params.doc);
   const mostrarProdID = async () => {
-    const showUsuarios = await usuarios.updateById(doc, req.body);
-    console.log('Usuario Actualizado')
-      res.send(showUsuarios);
+    const showProductos = await productos.updateById(doc, req.body);
+    console.log('Producto Actualizado')
+      res.send(showProductos);
       return;
   };  
   mostrarProdID();
@@ -53,8 +53,8 @@ routerFirebase.put("/firebase/:doc", (req, res, next) => {
 routerFirebase.delete("/firebase/:doc", (req, res, next) => {
     let doc = (req.params.doc);
     const eliminoPorID = async () => {
-      const usuarios = new FirebaseContainer("usuarios");
-        await usuarios.deleteById(doc);
+      const producto = new FirebaseContainer("producto");
+        await producto.deleteById(doc);
     };
     eliminoPorID();
     next();
