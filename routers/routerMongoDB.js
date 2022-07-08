@@ -9,7 +9,7 @@ let mongoDBContainer = require("../clases/mongoDBClass.js");
  */
 routerMongoDB.get("/mongoDB", (req, res, next) => {
     const mostrarProductos = async () => {
-        const productos = new mongoDBContainer("ecommerce", "usuarios");
+        const productos = new mongoDBContainer("ecommerce", "productos");
         const showProductos = await productos.getAll();
         res.send(showProductos);
     };
@@ -17,13 +17,13 @@ routerMongoDB.get("/mongoDB", (req, res, next) => {
 });
 
 /**
- * Obtengo un usuario segun ID y mostrarlo por pantalla
+ * Obtengo un producto segun ID y mostrarlo por pantalla
  */
 routerMongoDB.get("/mongodb/:id", (req, res, next) => {
     let id = (req.params.id);
     const mostrarProdID = async () => {
-    const usuarios = new mongoDBContainer("ecommerce", "usuarios");
-        const mostrarID = await usuarios.getById(id);
+    const productos = new mongoDBContainer("ecommerce", "productos");
+        const mostrarID = await productos.getById(id);
         res.send(mostrarID);
     };
     mostrarProdID();
@@ -35,7 +35,7 @@ routerMongoDB.get("/mongodb/:id", (req, res, next) => {
 
 routerMongoDB.post("/mongodb", async (req, res, next) => {
     const subirProduct = async () => {
-        const productos = new mongoDBContainer("ecommerce", "usuarios");
+        const productos = new mongoDBContainer("ecommerce", "productos");
             await productos.metodoSave(req.body);
             return res.send(req.body);
         next();
@@ -50,7 +50,7 @@ subirProduct();
 routerMongoDB.put("/mongodb/:id", (req, res, next) => {
     let id = (req.params.id);
     const mostrarProdID = async () => {
-    const productos = new mongoDBContainer("ecommerce", "usuarios");
+    const productos = new mongoDBContainer("ecommerce", "productos");
         const mostrarID = await productos.updateById(id, req.body);
         res.send(mostrarID);
     };
@@ -64,9 +64,9 @@ routerMongoDB.put("/mongodb/:id", (req, res, next) => {
  routerMongoDB.delete("/mongodb/:id", (req, res, next) => {
     let id = (req.params.id);
     const mostrarProdID = async () => {
-    const productos = new mongoDBContainer("ecommerce", "usuarios");
+    const productos = new mongoDBContainer("ecommerce", "productos");
         await productos.deleteById(id);
-        res.send("Usuario Eliminado!");
+        res.send("Producto Eliminado!");
     };
     mostrarProdID();
 });

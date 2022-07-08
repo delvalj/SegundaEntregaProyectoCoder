@@ -16,16 +16,17 @@ module.exports = class ContenedorMongoDB {
 /**
  * Metodo para guardar un usuario.
  * Recibo un objeto usuario como param. 
- * @param {Object} usuario 
+ * @param {Object} producto 
  */
-  async metodoSave(usuario) {
+  async metodoSave(producto) {
     await mongo
       .db(this.nombreTabla)
       .collection(this.nombreCollection)
       .insertOne({
-        nombre: usuario.nombre,
-        apellido: usuario.apellido,
-        dni: usuario.dni,
+        nombre: producto.nombre,
+        price: producto.price,
+        code: producto.code,
+        thumbnail: producto.thumbnail,
       });
   }
 
@@ -65,10 +66,10 @@ module.exports = class ContenedorMongoDB {
   /**
    * Metodo para actualizar un usuario.
    * @param {Integer} id recibo por parametros el id del usuario que voy a actualizar .
-   * @param {Object} usuario  recibo por parametros un objeto usuario con la nueva informacion.
+   * @param {Object} producto  recibo por parametros un objeto usuario con la nueva informacion.
    * @returns 
    */
-  async updateById(id, usuario) {
+  async updateById(id, producto) {
     try {
       const resultado = await mongo
         .db(this.nombreTabla)
@@ -77,9 +78,10 @@ module.exports = class ContenedorMongoDB {
           { "_id" : ObjectId(id) },
           {
             "$set" : { 
-              "nombre": usuario.nombre,
-              "apellido": usuario.apellido,
-              "dni": usuario.dni,
+              "nombre": producto.nombre,
+              "price": producto.price,
+              "code": producto.code,
+              "thumbnail": producto.thumbnail,
             },
           }
         );

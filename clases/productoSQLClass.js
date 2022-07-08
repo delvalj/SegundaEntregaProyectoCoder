@@ -20,7 +20,7 @@ module.exports = class Contenedor {
    */
   async metodoSave(producto) {
     await this.knex("articulos").insert({
-      titulo: producto.titulo,
+      nombre: producto.nombre,
       thumbnail: producto.thumbnail,
       price: producto.price,
       code: producto.code,

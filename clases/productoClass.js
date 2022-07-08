@@ -1,4 +1,5 @@
-// ENTREGA PROYECTO FINAL CODERHOUSE
+// ENTREGA PROYECTO FINAL CODERHOUSE 
+// Guardado en Memoria
 
 const fs = require("fs");
 // import moment from 'moment';
@@ -86,10 +87,8 @@ module.exports = class Contenedor {
       array.push(contenidoCrudo);
       let prodId = contenidoCrudo.filter((p) => p.id !== id);
       // const arrayDeleteado = array.splice(prodId);
-
       // const jsLibraries = ['react', 'redux', 'vue', 'D3', 'Chart']
       const arrayDeleteado = array.filter((item) => item !== prodId)
-
       await fs.promises.writeFile("productos.txt", JSON.stringify(arrayDeleteado));
       return arrayDeleteado;
     } catch (e) {
