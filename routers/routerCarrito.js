@@ -4,12 +4,15 @@ const routerCarrito = Router();
 const multer = require("multer");
 const storage = multer({destinantion: "/upload"});
 
-let carritoContainer = require("../clases/carritoClass.js");
+// let carritoContainer = require("../clases/carritoClass.js");
+
+const DaoProduct = require ("../daos/carrito/carritoDaoMemoria");
+const products = new DaoProduct();
 
 routerCarrito.get("/carrito", (req, res, next) => {
     const mostrarProductos = async () => {
-        const productos = new carritoContainer("carrito.txt");
-        const showProductos = await productos.getAll();
+        // const productos = new carritoContainer("carrito.txt");
+        const showProductos = await products.getAll();
         res.send(showProductos);
     };
     mostrarProductos();
@@ -18,8 +21,8 @@ routerCarrito.get("/carrito", (req, res, next) => {
 routerCarrito.get("/carrito/:id", (req, res, next) => {
     let id = parseInt(req.params.id);
     const mostrarProdID = async () => {
-        const productos = new carritoContainer("carrito.txt");
-        const mostrarID = await productos.getById(id);
+        // const productos = new carritoContainer("carrito.txt");
+        const mostrarID = await products.getById(id);
         res.send(mostrarID);
     };
     mostrarProdID();
@@ -38,7 +41,7 @@ const productoSubido = storage.fields([
 
 routerCarrito.post("/carrito", productoSubido, async (req, res, next) => {
     const subirProduct = async () => {
-        let produc = new carritoContainer("carrito.txt");
+        // let produc = new carritoContainer("carrito.txt");
         if (
             req.body.title === "" ||
             req.body.price === "" ||
@@ -51,7 +54,7 @@ routerCarrito.post("/carrito", productoSubido, async (req, res, next) => {
                 error: "No se pudo cargar el producto. Complete los campos vacios.",
             });
         } else {
-            await produc.metodoSave(req.body);
+            await products.metodoSave(req.body);
             return res.send(req.body);
         }
         next();
@@ -62,8 +65,8 @@ routerCarrito.post("/carrito", productoSubido, async (req, res, next) => {
 routerCarrito.delete("/carrito/:id", (req, res) => {
     let id = parseInt(req.params.id);
     const eliminoPorID = async () => {
-        const productos = new carritoContainer("carrito.txt");
-        const mostrarID = await productos.deleteById(id);
+        // const productos = new carritoContainer("carrito.txt");
+        const mostrarID = await products.deleteById(id);
         res.send(`elemento con el ${id} eliminado`);
     };
     eliminoPorID();
