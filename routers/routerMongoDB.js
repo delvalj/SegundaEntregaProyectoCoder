@@ -2,15 +2,15 @@ const express = require("express");
 const {Router} = express;
 const routerMongoDB = Router();
 
-let mongoDBContainer = require("../clases/mongoDBClass.js");
+const DaoProduct = require ("../daos/productos/productosDaoMongo");
 
 /**
  * Metodo para obtener Todos los Usuarios y mostarrlos porpantalla
  */
 routerMongoDB.get("/mongoDB", (req, res, next) => {
     const mostrarProductos = async () => {
-        const productos = new mongoDBContainer("ecommerce", "productos");
-        const showProductos = await productos.getAll();
+        const products = new DaoProduct();
+        const showProductos = await products.getAll();
         res.send(showProductos);
     };
     mostrarProductos();
@@ -22,8 +22,9 @@ routerMongoDB.get("/mongoDB", (req, res, next) => {
 routerMongoDB.get("/mongodb/:id", (req, res, next) => {
     let id = (req.params.id);
     const mostrarProdID = async () => {
-    const productos = new mongoDBContainer("ecommerce", "productos");
-        const mostrarID = await productos.getById(id);
+        const products = new DaoProduct();
+    // const productos = new mongoDBContainer("ecommerce", "productos");
+        const mostrarID = await products.getById(id);
         res.send(mostrarID);
     };
     mostrarProdID();
@@ -35,8 +36,9 @@ routerMongoDB.get("/mongodb/:id", (req, res, next) => {
 
 routerMongoDB.post("/mongodb", async (req, res, next) => {
     const subirProduct = async () => {
-        const productos = new mongoDBContainer("ecommerce", "productos");
-            await productos.metodoSave(req.body);
+        const products = new DaoProduct();
+        // const productos = new mongoDBContainer("ecommerce", "productos");
+            await products.metodoSave(req.body);
             return res.send(req.body);
         next();
     };
@@ -50,8 +52,9 @@ subirProduct();
 routerMongoDB.put("/mongodb/:id", (req, res, next) => {
     let id = (req.params.id);
     const mostrarProdID = async () => {
-    const productos = new mongoDBContainer("ecommerce", "productos");
-        const mostrarID = await productos.updateById(id, req.body);
+        const products = new DaoProduct();
+    // const productos = new mongoDBContainer("ecommerce", "productos");
+        const mostrarID = await products.updateById(id, req.body);
         res.send(mostrarID);
     };
     mostrarProdID();
@@ -64,8 +67,9 @@ routerMongoDB.put("/mongodb/:id", (req, res, next) => {
  routerMongoDB.delete("/mongodb/:id", (req, res, next) => {
     let id = (req.params.id);
     const mostrarProdID = async () => {
-    const productos = new mongoDBContainer("ecommerce", "productos");
-        await productos.deleteById(id);
+        const products = new DaoProduct();
+    // const productos = new mongoDBContainer("ecommerce", "productos");
+        await products.deleteById(id);
         res.send("Producto Eliminado!");
     };
     mostrarProdID();
