@@ -15,8 +15,6 @@ if (!fileExists) {
     console.log("Archivo carrito.txt Creado!");
 }
 
-
-
 class carritoDaoMemoria extends ContenedorCarrito {
     constructor() {
       super("carrito.txt");
