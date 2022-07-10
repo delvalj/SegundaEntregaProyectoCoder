@@ -5,7 +5,8 @@ const multer = require("multer");
 const storage = multer({destinantion: "/upload"});
 
 // const DaoProduct = require ("../daos/carrito/carritoDaoMemoria.js");
-const DaoProduct = require ("../daos/carrito/carritoDaoMongo.js");
+// const DaoProduct = require ("../daos/carrito/carritoDaoMongo.js");
+const DaoProduct = require ("../daos/carrito/carritoDaoFirebase.js");
 
 const products = new DaoProduct();
 

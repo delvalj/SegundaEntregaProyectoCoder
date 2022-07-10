@@ -3,13 +3,13 @@ const {Router} = express;
 const routerMongoDB = Router();
 
 const DaoProduct = require ("../daos/productos/productosDaoMongo");
+const products = new DaoProduct();
 
 /**
  * Metodo para obtener Todos los Usuarios y mostarrlos porpantalla
  */
 routerMongoDB.get("/mongoDB", (req, res, next) => {
     const mostrarProductos = async () => {
-        const products = new DaoProduct();
         const showProductos = await products.getAll();
         res.send(showProductos);
     };
@@ -22,8 +22,6 @@ routerMongoDB.get("/mongoDB", (req, res, next) => {
 routerMongoDB.get("/mongodb/:id", (req, res, next) => {
     let id = (req.params.id);
     const mostrarProdID = async () => {
-        const products = new DaoProduct();
-    // const productos = new mongoDBContainer("ecommerce", "productos");
         const mostrarID = await products.getById(id);
         res.send(mostrarID);
     };
@@ -36,8 +34,6 @@ routerMongoDB.get("/mongodb/:id", (req, res, next) => {
 
 routerMongoDB.post("/mongodb", async (req, res, next) => {
     const subirProduct = async () => {
-        const products = new DaoProduct();
-        // const productos = new mongoDBContainer("ecommerce", "productos");
             await products.metodoSave(req.body);
             return res.send(req.body);
         next();
@@ -52,8 +48,6 @@ subirProduct();
 routerMongoDB.put("/mongodb/:id", (req, res, next) => {
     let id = (req.params.id);
     const mostrarProdID = async () => {
-        const products = new DaoProduct();
-    // const productos = new mongoDBContainer("ecommerce", "productos");
         const mostrarID = await products.updateById(id, req.body);
         res.send(mostrarID);
     };
@@ -67,8 +61,6 @@ routerMongoDB.put("/mongodb/:id", (req, res, next) => {
  routerMongoDB.delete("/mongodb/:id", (req, res, next) => {
     let id = (req.params.id);
     const mostrarProdID = async () => {
-        const products = new DaoProduct();
-    // const productos = new mongoDBContainer("ecommerce", "productos");
         await products.deleteById(id);
         res.send("Producto Eliminado!");
     };

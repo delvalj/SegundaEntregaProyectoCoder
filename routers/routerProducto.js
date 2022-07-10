@@ -4,8 +4,8 @@ const routerProducto = Router();
 const multer = require("multer");
 const storage = multer({destinantion: "/upload"});
 
-// let productContainer = require("../clases/productoClass");
 const DaoProduct = require("../daos/productos/productosDaoMemoria");
+
 const products = new DaoProduct();
 
 const middlewareAutenticacion = (req, res, next) => {
@@ -23,7 +23,6 @@ const middlewareAutorizacion = (req, res, next) => {
 
 routerProducto.get("/productos", middlewareAutenticacion, (req, res, next) => {
     const mostrarProductos = async () => {
-        // const productos = new productContainer("productos.txt");
         const showProductos = await products.getAll();
         res.send(showProductos);
     };
@@ -33,7 +32,6 @@ routerProducto.get("/productos", middlewareAutenticacion, (req, res, next) => {
 routerProducto.get("/productos/:id", middlewareAutenticacion, middlewareAutorizacion, (req, res, next) => {
     let id = parseInt(req.params.id);
     const mostrarProdID = async () => {
-        // const productos = new productContainer("productos.txt");
         const mostrarID = await products.getById(id);
         res.send(mostrarID);
     };
@@ -53,7 +51,6 @@ const productoSubido = storage.fields([
 
 routerProducto.post("/productos", productoSubido, middlewareAutenticacion, middlewareAutorizacion, async (req, res, next) => {
     const subirProduct = async () => {
-        // let products = new productContainer("productos.txt");
         if (
             req.body.title === "" ||
             req.body.price === "" ||
@@ -87,7 +84,6 @@ routerProducto.post("/productos", productoSubido, middlewareAutenticacion, middl
 
 routerProducto.delete("/productos", middlewareAutenticacion, middlewareAutorizacion, (req, res) => {
     const eliminoTodo = async () => {
-        // const productos = new productContainer("productos.txt");
         await products.deleteAll();
         res.send("Todos los productos han sido eliminados");
         
