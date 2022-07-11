@@ -4,7 +4,9 @@ const routerProducto = Router();
 const multer = require("multer");
 const storage = multer({destinantion: "/upload"});
 
-let productContainer = require("../clases/productoClass");
+const DaoProduct = require("../daos/productos/productosDaoMemoria");
+
+const products = new DaoProduct();
 
 const middlewareAutenticacion = (req, res, next) => {
     req.user = {
@@ -21,8 +23,7 @@ const middlewareAutorizacion = (req, res, next) => {
 
 routerProducto.get("/productos", middlewareAutenticacion, (req, res, next) => {
     const mostrarProductos = async () => {
-        const productos = new productContainer("productos.txt");
-        const showProductos = await productos.getAll();
+        const showProductos = await products.getAll();
         res.send(showProductos);
     };
     mostrarProductos();
@@ -31,8 +32,7 @@ routerProducto.get("/productos", middlewareAutenticacion, (req, res, next) => {
 routerProducto.get("/productos/:id", middlewareAutenticacion, middlewareAutorizacion, (req, res, next) => {
     let id = parseInt(req.params.id);
     const mostrarProdID = async () => {
-        const productos = new productContainer("productos.txt");
-        const mostrarID = await productos.getById(id);
+        const mostrarID = await products.getById(id);
         res.send(mostrarID);
     };
     mostrarProdID();
@@ -51,7 +51,6 @@ const productoSubido = storage.fields([
 
 routerProducto.post("/productos", productoSubido, middlewareAutenticacion, middlewareAutorizacion, async (req, res, next) => {
     const subirProduct = async () => {
-        let produc = new productContainer("productos.txt");
         if (
             req.body.title === "" ||
             req.body.price === "" ||
@@ -64,7 +63,7 @@ routerProducto.post("/productos", productoSubido, middlewareAutenticacion, middl
                 error: "No se pudo cargar el producto. Complete los campos vacios.",
             });
         } else {
-            await produc.metodoSave(req.body);
+            await products.metodoSave(req.body);
            return res.send(req.body);
         }
         next();
@@ -85,8 +84,7 @@ routerProducto.post("/productos", productoSubido, middlewareAutenticacion, middl
 
 routerProducto.delete("/productos", middlewareAutenticacion, middlewareAutorizacion, (req, res) => {
     const eliminoTodo = async () => {
-        const productos = new productContainer("productos.txt");
-        await productos.deleteAll();
+        await products.deleteAll();
         res.send("Todos los productos han sido eliminados");
         
     };

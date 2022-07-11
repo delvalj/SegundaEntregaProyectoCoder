@@ -14,7 +14,7 @@ Hacer lo mismo para bases de datos relacionales: MariaDB/SQLite3.
 ## Clonar el proyecto:
 git clone https://github.com/delvalj/SegundaEntregaProyectoCoder.git
 
-
+* Para inicializar la tabla "Articulos" hay que ejecutar el archivo mysql.js
 
 
 
